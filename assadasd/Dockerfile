@@ -6,11 +6,10 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
-COPY ["assadasd/assadasd.csproj", "assadasd/"]
-RUN dotnet restore "assadasd/assadasd.csproj"
-COPY . .
-WORKDIR "/src/assadasd"
+WORKDIR /src/assadasd
+COPY *.csproj ./
+RUN dotnet restore
+COPY . ./
 RUN dotnet build "assadasd.csproj" -c Release -o /app/build
 
 FROM build AS publish
